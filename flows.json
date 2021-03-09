@@ -1,0 +1,526 @@
+[
+    {
+        "id": "9b7b952.bd35e68",
+        "type": "tab",
+        "label": "Automation.Scraping",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a6bc14f1.f32138",
+        "type": "www-request",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "https://www.marketwatch.com/investing/stock/gme",
+        "follow-redirects": true,
+        "persistent-http": true,
+        "tls": "",
+        "x": 330,
+        "y": 60,
+        "wires": [
+            [
+                "f3bc0e7d.b87ef8",
+                "bb675d6c.6fe488",
+                "257af33.3627d0c",
+                "9ed1b983.85235",
+                "aad67674.3ac2",
+                "89e078d3.157668",
+                "c47ba51b.b5a768"
+            ]
+        ]
+    },
+    {
+        "id": "f2d2735f.37af38",
+        "type": "inject",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "a6bc14f1.f32138"
+            ]
+        ]
+    },
+    {
+        "id": "f3bc0e7d.b87ef8",
+        "type": "html",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "div.intraday__data>h3.intraday__price>bg-quote",
+        "ret": "html",
+        "as": "single",
+        "x": 650,
+        "y": 100,
+        "wires": [
+            [
+                "14d60a76.e2525e"
+            ]
+        ]
+    },
+    {
+        "id": "bb675d6c.6fe488",
+        "type": "html",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "div.intraday__data>bg-quote>span.change--point--q>bg-quote",
+        "ret": "html",
+        "as": "single",
+        "x": 690,
+        "y": 240,
+        "wires": [
+            [
+                "876143f4.5b13d"
+            ]
+        ]
+    },
+    {
+        "id": "257af33.3627d0c",
+        "type": "html",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "div.intraday__data>bg-quote>span.change--percent--q>bg-quote",
+        "ret": "attr",
+        "as": "single",
+        "x": 700,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9ed1b983.85235",
+        "type": "html",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "div.intraday__volume>span.volume__value>bg-quote",
+        "ret": "attr",
+        "as": "single",
+        "x": 660,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "aad67674.3ac2",
+        "type": "html",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "div.intraday__volume>span.volume__value>bg-quote",
+        "ret": "text",
+        "as": "single",
+        "x": 660,
+        "y": 520,
+        "wires": [
+            [
+                "4c46e87e.d92a8"
+            ]
+        ]
+    },
+    {
+        "id": "89e078d3.157668",
+        "type": "html",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "div.intraday__data>bg-quote>span.change--percent--q>bg-quote",
+        "ret": "html",
+        "as": "single",
+        "x": 700,
+        "y": 380,
+        "wires": [
+            [
+                "d03ad8d0.0fa81"
+            ]
+        ]
+    },
+    {
+        "id": "88de387e.38f5f",
+        "type": "html",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "div.intraday__data>bg-quote>span.change--point--q>bg-quote",
+        "ret": "attr",
+        "as": "single",
+        "x": 690,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c47ba51b.b5a768",
+        "type": "html",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "div.intraday__data>h3.intraday__price>bg-quote",
+        "ret": "attr",
+        "as": "single",
+        "x": 650,
+        "y": 60,
+        "wires": [
+            [
+                "851e44d9.0e017"
+            ]
+        ]
+    },
+    {
+        "id": "14d60a76.e2525e",
+        "type": "function",
+        "z": "9b7b952.bd35e68",
+        "name": "arrayFirst",
+        "func": "msg.topic = \"Price\"\nvar flowVariable1 = 0.07;\nflowVariable1 = flow.get(msg.topic);\n\nmsg.payload = parseFloat(msg.payload[0]);\n\nif (flowVariable1 == 0.07){ \n    flow.set(msg.topic, msg.payload);\n    return msg;\n}\nif (flowVariable1 != msg.payload){\n    msg.change = flowVariable1 - msg.payload;\n    flowVariable1 = msg.payload;\n    flow.set(msg.topic, flowVariable1);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1020,
+        "y": 100,
+        "wires": [
+            [
+                "735a07ed.5e3768",
+                "df0d0b4c.85b39",
+                "fa426ce8.65b18"
+            ]
+        ]
+    },
+    {
+        "id": "876143f4.5b13d",
+        "type": "function",
+        "z": "9b7b952.bd35e68",
+        "name": "arrayFirst",
+        "func": "msg.topic = \"Points\"\nvar flowVariable1 = 0.07;\nflowVariable1 = flow.get(msg.topic);\n\nmsg.payload = parseFloat(msg.payload[0]);\n\nif (flowVariable1 == 0.07){ \n    flow.set(msg.topic, msg.payload);\n    return msg;\n}\nif (flowVariable1 != msg.payload){\n    msg.change = flowVariable1 - msg.payload;\n    flowVariable1 = msg.payload;\n    flow.set(msg.topic, flowVariable1);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1020,
+        "y": 240,
+        "wires": [
+            [
+                "df0d0b4c.85b39",
+                "ed7c8874.bc94a8"
+            ]
+        ]
+    },
+    {
+        "id": "d03ad8d0.0fa81",
+        "type": "function",
+        "z": "9b7b952.bd35e68",
+        "name": "arrayFirst",
+        "func": "msg.topic = \"percent\"\nvar flowVariable1 = 0.07;\nflowVariable1 = flow.get(msg.topic);\n\nmsg.payload = parseFloat(msg.payload[0]);\n\nif (flowVariable1 == 0.07){ \n    flow.set(msg.topic, msg.payload);\n    return msg;\n}\nif (flowVariable1 != msg.payload){\n    msg.change = flowVariable1 - msg.payload;\n    flowVariable1 = msg.payload;\n    flow.set(msg.topic, flowVariable1);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1020,
+        "y": 380,
+        "wires": [
+            [
+                "df0d0b4c.85b39",
+                "23d7f458.791da4"
+            ]
+        ]
+    },
+    {
+        "id": "4c46e87e.d92a8",
+        "type": "function",
+        "z": "9b7b952.bd35e68",
+        "name": "arrayFirst",
+        "func": "msg.topic = \"Volume\"\nvar flowVariable1 = 0.07;\nflowVariable1 = flow.get(msg.topic);\n\nmsg.payload = parseFloat(msg.payload[0]);\n\nif (flowVariable1 == 0.07){ \n    flow.set(msg.topic, msg.payload);\n    return msg;\n}\nif (flowVariable1 != msg.payload){\n    msg.change = flowVariable1 - msg.payload;\n    flowVariable1 = msg.payload;\n    flow.set(msg.topic, flowVariable1);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1020,
+        "y": 520,
+        "wires": [
+            [
+                "df0d0b4c.85b39",
+                "6f762c32.298794"
+            ]
+        ]
+    },
+    {
+        "id": "851e44d9.0e017",
+        "type": "function",
+        "z": "9b7b952.bd35e68",
+        "name": "arraySession",
+        "func": "msg.topic = \"Session\"\nvar flowVariable1 = \"greg\";\nflowVariable1 = flow.get(msg.topic);\n\nmsg.payload = msg.payload[0].session;\n\nif (flowVariable1 == \"greg\"){ return msg; }\nif (flowVariable1 != msg.payload){\n    flowVariable1 = msg.payload;\n    flow.set(msg.topic, flowVariable1);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1000,
+        "y": 60,
+        "wires": [
+            [
+                "df0d0b4c.85b39"
+            ]
+        ]
+    },
+    {
+        "id": "df0d0b4c.85b39",
+        "type": "join",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "9",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1250,
+        "y": 60,
+        "wires": [
+            [
+                "c9488e67.050d5"
+            ]
+        ]
+    },
+    {
+        "id": "735a07ed.5e3768",
+        "type": "function",
+        "z": "9b7b952.bd35e68",
+        "name": "arrayFirst",
+        "func": "msg.topic = \"Price_delta\"\nvar flowVariable1 = 0.07;\nflowVariable1 = flow.get(msg.topic);\n\nmsg.payload = msg.change;\n\nif (flowVariable1 == 0.07){ \n    flow.set(msg.topic, msg.payload);\n    return msg;\n}\nif (flowVariable1 != msg.payload){\n    flowVariable1 = msg.payload;\n    flow.set(msg.topic, flowVariable1);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1020,
+        "y": 140,
+        "wires": [
+            [
+                "df0d0b4c.85b39",
+                "fa426ce8.65b18"
+            ]
+        ]
+    },
+    {
+        "id": "ed7c8874.bc94a8",
+        "type": "function",
+        "z": "9b7b952.bd35e68",
+        "name": "arrayFirst",
+        "func": "msg.topic = \"Points_delta\"\nvar flowVariable1 = 0.07;\nflowVariable1 = flow.get(msg.topic);\n\nmsg.payload = msg.change;\n\nif (flowVariable1 == 0.07){ \n    flow.set(msg.topic, msg.payload);\n    return msg;\n}\nif (flowVariable1 != msg.payload){\n    flowVariable1 = msg.payload;\n    flow.set(msg.topic, flowVariable1);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1020,
+        "y": 280,
+        "wires": [
+            [
+                "df0d0b4c.85b39"
+            ]
+        ]
+    },
+    {
+        "id": "23d7f458.791da4",
+        "type": "function",
+        "z": "9b7b952.bd35e68",
+        "name": "arrayFirst",
+        "func": "msg.topic = \"Percent_delta\"\nvar flowVariable1 = 0.07;\nflowVariable1 = flow.get(msg.topic);\n\nmsg.payload = msg.change;\n\nif (flowVariable1 == 0.07){ \n    flow.set(msg.topic, msg.payload);\n    return msg;\n}\nif (flowVariable1 != msg.payload){\n    flowVariable1 = msg.payload;\n    flow.set(msg.topic, flowVariable1);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1020,
+        "y": 420,
+        "wires": [
+            [
+                "df0d0b4c.85b39"
+            ]
+        ]
+    },
+    {
+        "id": "6f762c32.298794",
+        "type": "function",
+        "z": "9b7b952.bd35e68",
+        "name": "arrayFirst",
+        "func": "msg.topic = \"Volume_delta\"\nvar flowVariable1 = 0.07;\nflowVariable1 = flow.get(msg.topic);\n\nmsg.payload = msg.change;\n\nif (flowVariable1 == 0.07){ \n    flow.set(msg.topic, msg.payload);\n    return msg;\n}\nif (flowVariable1 != msg.payload){\n    flowVariable1 = msg.payload;\n    flow.set(msg.topic, flowVariable1);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1020,
+        "y": 560,
+        "wires": [
+            [
+                "df0d0b4c.85b39"
+            ]
+        ]
+    },
+    {
+        "id": "1758d4b5.ff522b",
+        "type": "poll-state",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "server": "88e002d9.806fc",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "updateinterval": "60",
+        "updateIntervalUnits": "seconds",
+        "outputinitially": false,
+        "outputonchanged": false,
+        "entity_id": "light.bedside",
+        "state_type": "str",
+        "halt_if": "true",
+        "halt_if_type": "bool",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "x": 190,
+        "y": 140,
+        "wires": [
+            [
+                "a6bc14f1.f32138"
+            ],
+            [
+                "a6bc14f1.f32138"
+            ]
+        ]
+    },
+    {
+        "id": "c9488e67.050d5",
+        "type": "function",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "func": "var rangeLimit = 3;\nvar range = rangeLimit *2;\nvar lightMax = 255;\nvar debug = msg.payload.Points_delta;\n\n// normalize\nif (isNaN(msg.payload.Points_delta)){msg.payload.Points_delta = 0;}\nif (msg.payload.Points_delta > rangeLimit){\n    msg.payload.Points_delta = rangeLimit;\n}\nif (msg.payload.Points_delta < -rangeLimit){\n    msg.payload.Points_delta = -rangeLimit\n}\n\n// range finder\nvar u_change = msg.payload.Points_delta +rangeLimit;\nvar decChange = u_change/range;\nvar intChange = decChange *lightMax;\n\n// light colouring\nvar ledRed = Math.round((1 - decChange) * lightMax);\nvar ledGreen = Math.round(decChange * lightMax);\n\nmsg ={payload:{\"on\":true,\"rgb\":[ledRed,ledGreen,0]}}\nmsg.delta = debug;\nmsg.dec = decChange;\nmsg.red = ledRed;\nmsg.green = ledGreen;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1420,
+        "y": 60,
+        "wires": [
+            [
+                "452f7c1f.37af6c",
+                "be3312b1.16644"
+            ]
+        ]
+    },
+    {
+        "id": "be3312b1.16644",
+        "type": "hue-light",
+        "z": "9b7b952.bd35e68",
+        "name": "Kitchen",
+        "bridge": "927c0eec.e75",
+        "lightid": "55",
+        "colornamer": true,
+        "skipevents": false,
+        "universalevents": false,
+        "x": 1610,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fa426ce8.65b18",
+        "type": "debug",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1530,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "452f7c1f.37af6c",
+        "type": "function",
+        "z": "9b7b952.bd35e68",
+        "name": "",
+        "func": "\nmsg ={\"payload\":msg.delta}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1420,
+        "y": 120,
+        "wires": [
+            [
+                "fa426ce8.65b18"
+            ]
+        ]
+    },
+    {
+        "id": "88e002d9.806fc",
+        "type": "server",
+        "name": "Home Assistant",
+        "legacy": false,
+        "addon": true,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": false,
+        "cacheJson": true
+    },
+    {
+        "id": "927c0eec.e75",
+        "type": "hue-bridge",
+        "name": "Philips hue",
+        "bridge": "127.0.0.1",
+        "key": "",
+        "interval": "3000",
+        "disableupdates": false
+    }
+]
